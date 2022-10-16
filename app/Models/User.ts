@@ -1,5 +1,14 @@
 import { DateTime } from 'luxon'
-import { BaseModel, column } from '@ioc:Adonis/Lucid/Orm'
+import { BaseModel, column, beforeSave, hasMany, HasMany } from '@ioc:Adonis/Lucid/Orm'
+import Hash from '@ioc:Adonis/Core/Hash'
+import Task from 'App/Models/Task'
+
+interface StoreUserType {
+  email: string
+  firstName: string
+  lastName: string
+  password: string
+}
 
 export default class User extends BaseModel {
   @column({ isPrimary: true })
@@ -8,7 +17,7 @@ export default class User extends BaseModel {
   @column()
   public email: string
 
-  @column({ serializeAs: 'stored_value' })
+  @column({ serializeAs: null })
   public password: string
 
   @column()
@@ -25,4 +34,33 @@ export default class User extends BaseModel {
 
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   public updatedAt: DateTime
+
+  @beforeSave()
+  public static async hashPassword(user: User) {
+    if (user.$dirty.password) {
+      user.password = await Hash.make(user.password)
+    }
+  }
+
+  @hasMany(() => Task, {
+    localKey: 'id',
+    foreignKey: 'user_id', // userId
+  })
+  public tasks: HasMany<typeof Task>
+
+  public static storeUser = async (data: StoreUserType) => {
+    const exists = await this.findBy('email', data.email)
+    if (exists) {
+      return Promise.reject(new Error('User with this email already exists'))
+    }
+
+    await this.create({
+      email: data.email,
+      password: data.password,
+      first_name: data.firstName,
+      last_name: data.lastName,
+    })
+
+    return Promise.resolve('User created')
+  }
 }

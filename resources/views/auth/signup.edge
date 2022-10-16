@@ -1,0 +1,67 @@
+@layout('layouts/main')
+@set('title', 'Signup')
+
+@section('content')
+
+<div class="container">
+
+  <h4 class="fs-4 fw-bold text-center my-5">Sign Up</h4>
+
+  <div class="row flex-column align-items-center">
+    <div class="col-12 col-md-5 col-lg-4 col-xl-3">
+      <form action="{{ route('signup') }}" method="post">
+
+        <div class="form-floating mb-3">
+          <input type="text" class="form-control {{ flashMessages.has('errors.firstName') && 'is-invalid' }}"
+            placeholder="First Name" name="firstName" value="{{ flashMessages.get('firstName', '') }}" required>
+          <label for="floatingInput">First Name</label>
+          @if(flashMessages.has('errors.firstName'))
+          <p class="fs-6 text-danger mb-0">
+            {{ flashMessages.get('errors.firstName') }}
+          </p>
+          @endif
+        </div>
+
+        <div class="form-floating mb-3">
+          <input type="text" class="form-control {{ flashMessages.has('errors.lastName') && 'is-invalid' }}"
+            placeholder="Last Name" name="lastName" value="{{ flashMessages.get('lastName', '') }}" required>
+          <label for="floatingInput">Last Name</label>
+          @if(flashMessages.has('errors.lastName'))
+          <p class="fs-6 text-danger mb-0">
+            {{ flashMessages.get('errors.lastName') }}
+          </p>
+          @endif
+        </div>
+
+        <div class="form-floating mb-3">
+          <input type="email" class="form-control {{ flashMessages.has('errors.email') && 'is-invalid' }}"
+            placeholder="name@example.com" name="email" value="{{ flashMessages.get('email', '') }}" required>
+          <label for="floatingInput">Email address</label>
+          @if(flashMessages.has('errors.email'))
+          <p class="fs-6 text-danger mb-0">
+            {{ flashMessages.get('errors.email') }}
+          </p>
+          @endif
+        </div>
+
+        <div class="form-floating mb-2">
+          <input type="password" class="form-control {{ flashMessages.has('errors.password') && 'is-invalid' }}"
+            id="floatingPassword" placeholder="Password" name="password" required>
+          <label for="floatingPassword">Password</label>
+          @if(flashMessages.has('errors.password'))
+          <p class="fs-6 text-danger mb-0">
+            {{ flashMessages.get('errors.password') }}
+          </p>
+          @endif
+        </div>
+
+        <button type="submit" class="btn btn-primary">Signup</button>
+        <a href="{{ route('login') }}" class="btn btn-secondary">Login</a>
+
+      </form>
+    </div>
+  </div>
+
+</div>
+
+@endsection
