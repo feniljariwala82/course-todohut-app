@@ -11,6 +11,8 @@
     <div class="col-12 col-md-5 col-lg-4 col-xl-3">
       <form action="{{ route('signup') }}" method="post">
 
+        {{ csrfField() }}
+
         <div class="form-floating mb-3">
           <input type="text" class="form-control {{ flashMessages.has('errors.firstName') && 'is-invalid' }}"
             placeholder="First Name" name="firstName" value="{{ flashMessages.get('firstName', '') }}" required>

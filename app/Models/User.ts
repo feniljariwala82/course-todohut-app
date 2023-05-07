@@ -63,4 +63,9 @@ export default class User extends BaseModel {
 
     return Promise.resolve('User created')
   }
+
+  public static getAllTaskByUserId = async (id: number) => {
+    const user = await this.query().where('id', id).preload('tasks').firstOrFail()
+    return Promise.resolve(user)
+  }
 }
