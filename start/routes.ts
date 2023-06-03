@@ -1,4 +1,5 @@
 import Route from '@ioc:Adonis/Core/Route'
+import './api/routes'
 
 Route.group(() => {
   Route.get('/', 'AuthController.login').as('login')

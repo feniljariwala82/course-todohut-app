@@ -5,7 +5,6 @@
  * file.
  */
 
-import Env from '@ioc:Adonis/Core/Env'
 import { ShieldConfig } from '@ioc:Adonis/Addons/Shield'
 
 /*
@@ -92,7 +91,10 @@ export const csrf: ShieldConfig['csrf'] = {
 	| ```
   |
   */
-  exceptRoutes: [],
+  exceptRoutes: (ctx) => {
+    // ignore all routes starting with /api/
+    return ctx.request.url().includes('/api/')
+  },
 
   /*
   |--------------------------------------------------------------------------
