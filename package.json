@@ -45,6 +45,7 @@
     "@babel/preset-env": "^7.21.5",
     "@japa/preset-adonis": "^1.2.0",
     "@japa/runner": "^2.5.1",
+    "@popperjs/core": "^2.11.8",
     "@symfony/webpack-encore": "^4.3.0",
     "adonis-preset-ts": "^2.1.0",
     "eslint": "^8.40.0",
