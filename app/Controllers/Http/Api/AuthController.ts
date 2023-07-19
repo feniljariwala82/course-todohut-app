@@ -2,6 +2,12 @@ import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import { rules, schema, validator } from '@ioc:Adonis/Core/Validator'
 import User from 'App/Models/User'
 
+const HEADER_KEY = 'App-User-Agent'
+const CLIENT_AGENT = {
+  WEB: 'TodoHutWebApp/1.0',
+  MOBILE: 'TodoHutMobileApp/1.0',
+}
+
 export default class AuthController {
   public async login({ request, response, auth }: HttpContextContract) {
     /**
@@ -32,15 +38,14 @@ export default class AuthController {
     })
 
     try {
-      const agent = request.header('User-Agent')
-      console.log(agent, 'agent')
+      const agent = request.header(HEADER_KEY)
       switch (agent) {
-        case 'TodoHutWebApp/1.0': {
+        case CLIENT_AGENT.WEB: {
           await auth.use('web').attempt(payload.email, payload.password)
           return response.ok('Logged in')
         }
 
-        case 'TodoHutMobileApp/1.0': {
+        case CLIENT_AGENT.MOBILE: {
           const user = await auth.use('api').attempt(payload.email, payload.password)
           return user.token
         }
@@ -56,14 +61,14 @@ export default class AuthController {
 
   public async logout({ response, auth, request }: HttpContextContract) {
     try {
-      const agent = request.header('User-Agent')
+      const agent = request.header(HEADER_KEY)
       switch (agent) {
-        case 'TodoHutWebApp/1.0': {
+        case CLIENT_AGENT.WEB: {
           await auth.use('web').logout()
           break
         }
 
-        case 'TodoHutMobileApp/1.0': {
+        case CLIENT_AGENT.MOBILE: {
           await auth.use('api').logout()
           break
         }
