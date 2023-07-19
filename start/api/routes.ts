@@ -10,6 +10,6 @@ Route.group(() => {
     /**
      * overriding alias name to avoid conflicts create by adonisjs
      */
-    Route.resource('tasks', 'TasksController').apiOnly().as('api_tasks')
+    Route.resource('tasks', 'Api/TasksController').apiOnly().as('api_tasks')
   }).middleware('apiAuth:web,api')
 }).prefix('api')

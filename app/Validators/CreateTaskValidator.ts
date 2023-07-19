@@ -1,5 +1,5 @@
-import { schema, CustomMessages, rules } from '@ioc:Adonis/Core/Validator'
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
+import { CustomMessages, rules, schema } from '@ioc:Adonis/Core/Validator'
 
 export default class CreateTaskValidator {
   constructor(protected ctx: HttpContextContract) {}
@@ -20,6 +20,6 @@ export default class CreateTaskValidator {
     'description.maxLength': 'Description can not be longer than 400 characters',
 
     'priority.required': 'Priority is required',
-    'priority.enum': 'Priority can not be none',
+    'priority.enum': 'Priority can only be either important, unimportant, urgent or future scope',
   }
 }
