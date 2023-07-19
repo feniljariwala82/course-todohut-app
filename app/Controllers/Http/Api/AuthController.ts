@@ -33,6 +33,7 @@ export default class AuthController {
 
     try {
       const agent = request.header('User-Agent')
+      console.log(agent, 'agent')
       switch (agent) {
         case 'TodoHutWebApp/1.0': {
           await auth.use('web').attempt(payload.email, payload.password)
@@ -45,7 +46,7 @@ export default class AuthController {
         }
 
         default:
-          break
+          throw new Error('Invalid user agent')
       }
     } catch (error) {
       console.error(error)
