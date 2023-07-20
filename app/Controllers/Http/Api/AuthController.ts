@@ -42,7 +42,7 @@ export default class AuthController {
       switch (agent) {
         case CLIENT_AGENT.WEB: {
           await auth.use('web').attempt(payload.email, payload.password)
-          return response.ok('Logged in')
+          return response.ok({ message: 'Logged in' })
         }
 
         case CLIENT_AGENT.MOBILE: {
@@ -74,10 +74,10 @@ export default class AuthController {
         }
 
         default:
-          break
+          throw new Error('Invalid user agent')
       }
 
-      return response.ok('Logged out')
+      return response.ok({ message: 'Logged out' })
     } catch (error) {
       console.error(error)
       return response.badRequest(error.message)
