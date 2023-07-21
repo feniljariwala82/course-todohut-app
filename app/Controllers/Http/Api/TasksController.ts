@@ -25,7 +25,7 @@ export default class TasksController {
         priority: payload.priority,
         userId: auth.user!.id,
       })
-      return response.ok(result)
+      return response.ok({ message: result })
     } catch (error) {
       console.error(error)
       return response.badRequest(error.message)

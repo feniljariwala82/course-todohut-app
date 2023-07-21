@@ -144,7 +144,7 @@ export default class AuthController {
         password: payload.password,
       })
 
-      return response.ok(result)
+      return response.ok({ message: result })
     } catch (error) {
       console.error(error)
       return response.badRequest(error.message)
