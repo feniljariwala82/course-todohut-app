@@ -65,7 +65,7 @@ export default class TasksController {
         description: payload.description,
         priority: payload.priority,
       })
-      return response.ok(result)
+      return response.ok({ message: result })
     } catch (error) {
       console.error(error)
       return response.badRequest(error.message)
@@ -82,7 +82,7 @@ export default class TasksController {
       await bouncer.authorize('editTask', task)
 
       const result = await Task.deleteTaskById(id)
-      return response.ok(result)
+      return response.ok({ message: result })
     } catch (error) {
       console.error(error)
       return response.badRequest(error.message)

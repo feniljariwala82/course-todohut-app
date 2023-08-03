@@ -87,7 +87,9 @@ export default sessionConfig({
   cookie: {
     path: '/',
     httpOnly: true,
-    sameSite: false,
+    // https://chat.openai.com/share/7fdaed00-163e-4a0e-aa55-7ea481a09b7e
+    sameSite: 'none',
+    secure: true,
   },
 
   /*
