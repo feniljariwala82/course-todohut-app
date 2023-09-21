@@ -11,6 +11,9 @@
     <div class="col-12 col-md-5 col-lg-4 col-xl-3">
 
       <form action="{{ route('tasks.store') }}" method="post">
+
+        {{ csrfField() }}
+
         <div class="form-floating mb-3">
           <input type="text" class="form-control {{ flashMessages.has('errors.title') && 'is-invalid' }}"
             id="floatingInput" name="title" value="{{ flashMessages.get('title', '') }}" placeholder="Task Title"

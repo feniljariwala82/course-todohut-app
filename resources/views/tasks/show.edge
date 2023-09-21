@@ -1,0 +1,36 @@
+@layout('layouts/main')
+@set('title', 'Show')
+
+@section('content')
+
+<div class="container">
+
+  <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="{{ route('tasks.index') }}">Home</a></li>
+      <li class="breadcrumb-item active" aria-current="page">Show</li>
+    </ol>
+  </nav>
+
+  <div class="row p-3 justify-content-center">
+    <div class="col-12 col-md-5 card p-4">
+
+      <p class="title fw-bold fs-4">Title</p>
+      <p class="text-capitalize">{{ task.title }}</p>
+      <hr>
+
+      <p class="title fw-bold fs-4">Description</p>
+      <p class="text-capitalize">{{ task.description }}</p>
+      <hr>
+
+      <p class="title fw-bold fs-4">Priority</p>
+      @!component('components/priority', {
+      priority: task.priority
+      })
+
+    </div>
+  </div>
+
+</div>
+
+@endsection

@@ -33,4 +33,33 @@ export default class Task extends BaseModel {
 
     return Promise.resolve('Task created')
   }
+
+  public static updateTask = async (data: UpdateTaskType) => {
+    const exists = await this.find(data.id)
+    if (!exists) {
+      return Promise.reject(new Error('Task not found'))
+    }
+
+    if (data.title) {
+      exists.title = data.title
+    }
+
+    if (data.description) {
+      exists.description = data.description
+    }
+
+    if (data.priority) {
+      exists.priority = data.priority
+    }
+
+    await exists.save()
+
+    return Promise.resolve('Task updated')
+  }
+
+  public static deleteTaskById = async (id: number) => {
+    const task = await this.findOrFail(id)
+    await task.delete()
+    return Promise.resolve('Task deleted')
+  }
 }

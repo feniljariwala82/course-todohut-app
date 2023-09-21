@@ -11,9 +11,6 @@ export default class extends BaseSchema {
       table.string('first_name', 50).notNullable()
       table.string('last_name', 50).notNullable()
       table.string('remember_me_token').nullable()
-      /**
-       * Uses timestamptz for PostgreSQL and DATETIME2 for MSSQL
-       */
       table.timestamp('created_at', { useTz: true })
       table.timestamp('updated_at', { useTz: true })
     })
