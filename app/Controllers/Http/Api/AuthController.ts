@@ -32,7 +32,7 @@ export default class AuthController {
 
         case CLIENT_AGENT.MOBILE: {
           const user = await auth.use('api').attempt(payload.email, payload.password)
-          return user.token
+          return response.ok(user.token)
         }
 
         default:
